@@ -35,5 +35,5 @@ printf "========================================================================
 printf "                    Install complete nginx php-fpm on docker              \n"
 printf "==========================================================================\n"
 printf "             Please save infomation web root, you can upload code here     \n"
-printf "                 Webroot:                  $nginx_creat_name/html          \n"
+printf "                 Webroot:                  $(pwd)/$nginx_creat_name/html          \n"
 printf "==========================================================================\n"
