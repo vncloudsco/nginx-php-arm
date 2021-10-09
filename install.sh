@@ -1,5 +1,4 @@
 #!/bin/bash
-
 function nginx_port_checker() {
     while :; do
         port=$(shuf -i 2000-4000 -n 1)
@@ -17,7 +16,7 @@ function nginx_port_checker() {
 function nginx_docker_name_random() {
     while :; do
         nginx_creat_name=$(openssl rand -hex 8)
-        nginx_creat_name_check=$(find ./ -name "$nginx_creat_name")
+        nginx_creat_name_check=$(find ./ -name "$db_creat")
         if [ -z "$nginx_creat_name_check" ]; then
             break
         fi
@@ -25,38 +24,8 @@ function nginx_docker_name_random() {
 
 }
 
-function creat_nginx_docker_file() {
-    cp -r core $nginx_creat_name 
-    cat > $nginx_creat_name/docker-compser.yaml <<EOF
-version: '3'
-services:
-  web:
-      build:
-        context: .
-        dockerfile: ./containers/nginx/Dockerfile
-      ports:
-          - "$port:80"
-      volumes:
-        - ./nginx.conf:/etc/nginx/nginx.conf
-        - ./html:/var/www/html
-      depends_on:
-          - php
-  php:
-      build:
-        context: .
-        dockerfile: ./containers/php/Dockerfile
-      volumes:
-        - /html:/var/www/html
-EOF
-
-}
-
-function start_docker_nginx() {
-    docker-compose -f $nginx_creat_name/docker-compser.yaml up -d
-}
-
-
 nginx_port_checker
 nginx_docker_name_random
-creat_nginx_docker_file
-start_docker_nginx
+cp -r core $nginx_creat_name
+sed -i "s/8080/$port/g" $nginx_creat_name/docker-compose.yml
+docker-compose -f $nginx_creat_name/docker-compose.yml up -d
