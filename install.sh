@@ -52,7 +52,7 @@ EOF
 }
 
 function start_docker_nginx() {
-    docker-compose -f $nginx_creat_name/docker-compser.yaml up
+    docker-compose -f $nginx_creat_name/docker-compser.yaml up -d
 }
 
 
