@@ -38,4 +38,5 @@ printf "========================================================================
 printf "             Please save infomation web root, you can upload code here     \n"
 printf "                 Webroot:                  $(pwd)/$nginx_creat_name/html          \n"
 printf "                 Website:                   $ip_domain:$port           \n"
+printf "            Config Nginx:                  $(pwd)/$nginx_creat_name/default.conf   \n"
 printf "==========================================================================\n"
