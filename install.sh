@@ -1,4 +1,19 @@
 #!/bin/bash
+function docker_install() {
+    docker_check=$(which docker)
+    if [ -z "$docker_check" ]; then
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sh get-docker.sh
+    fi
+}
+
+function docker_compose_install() {
+    docker_compose_check=$(which docker-compose)
+    if [ -z "$docker_compose_check" ]; then
+        sudo curl -L "https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+    fi
+}
 
 function nginx_port_checker() {
     while :; do
@@ -24,7 +39,8 @@ function nginx_docker_name_random() {
     done
 
 }
-
+docker_install
+docker_compose_install
 nginx_port_checker
 nginx_docker_name_random
 cp -r core $nginx_creat_name
