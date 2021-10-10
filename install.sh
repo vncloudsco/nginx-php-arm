@@ -30,10 +30,12 @@ nginx_docker_name_random
 cp -r core $nginx_creat_name
 sed -i "s/8080/$port/g" $nginx_creat_name/docker-compose.yml
 docker-compose -f $nginx_creat_name/docker-compose.yml up -d
+ip_domain=$(hostname -I | awk '{ print $1 }')
 
 printf "==========================================================================\n"
 printf "                    Install complete nginx php-fpm on docker              \n"
 printf "==========================================================================\n"
 printf "             Please save infomation web root, you can upload code here     \n"
 printf "                 Webroot:                  $(pwd)/$nginx_creat_name/html          \n"
+printf "                 Website:                   $ip_domain:$port           \n"
 printf "==========================================================================\n"
