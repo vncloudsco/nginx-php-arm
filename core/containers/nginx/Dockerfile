@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM nginxproxymanager/nginx-full
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY ./default.conf /etc/nginx/conf.d/default.conf
