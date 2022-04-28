@@ -58,5 +58,5 @@ printf "             Please save infomation, you can upload code to Webroot     
 printf "         Webroot Document:                  $(pwd)/$nginx_creat_name/html          \n"
 printf "                 Website:                   $ip_domain:$port           \n"
 printf "            Config Nginx:                  $(pwd)/$nginx_creat_name/default.conf   \n"
-print  "     Docker Compose File:                  $nginx_creat_name/docker-compose.yml  \n"
+printf  "     Docker Compose File:                  $nginx_creat_name/docker-compose.yml  \n"
 printf "==========================================================================\n"
