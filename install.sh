@@ -10,8 +10,11 @@ function docker_install() {
 function docker_compose_install() {
     docker_compose_check=$(which docker-compose)
     if [ -z "$docker_compose_check" ]; then
-        sudo curl -L "https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        sudo chmod +x /usr/local/bin/docker-compose
+        # Install new version docker compose
+        VERSION=$(curl --silent https://api.github.com/repos/docker/compose/releases/latest | grep -Po '"tag_name": "\K.*\d')
+        DESTINATION=/usr/local/bin/docker-compose
+        sudo curl -L https://github.com/docker/compose/releases/download/${VERSION}/docker-compose-$(uname -s)-$(uname -m) -o $DESTINATION
+        sudo chmod 755 $DESTINATION
     fi
 }
 
@@ -32,7 +35,7 @@ function nginx_port_checker() {
 function nginx_docker_name_random() {
     while :; do
         nginx_creat_name=$(openssl rand -hex 8)
-        nginx_creat_name_check=$(find ./ -name "$db_creat")
+        nginx_creat_name_check=$(find ./ -name "$nginx_creat_name")
         if [ -z "$nginx_creat_name_check" ]; then
             break
         fi
